@@ -1,0 +1,58 @@
+{
+  "name": "avtale-dashboard",
+  "alias": "avtaler.dashboard.next.t-fk.no",
+  "type": "static",
+  "static": {
+    "headers": [
+        {
+            "source": "**/*.@(html)",
+            "headers": [
+                {
+                    "key": "Referrer-Policy",
+                    "value": "no-referrer-when-downgrade"
+                },
+                {
+                    "key": "Content-Security-Policy",
+                    "value": "default-src 'self'; connect-src 'self' log.avtale.service.t-fk.no; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' ; form-action 'self'; object-src 'self'; frame-ancestors 'self'; base-uri 'self'"
+                },
+                {
+                    "key": "X-XSS-Protection",
+                    "value": "1; mode=block"
+                },
+                {
+                    "key": "Feature-Policy",
+                    "value": "geolocation 'self'; microphone 'self'; camera 'self'"
+                }
+            ]
+        }, {
+            "source": "*",
+            "headers": [
+                {
+                    "key": "Strict-Transport-Security",
+                    "value": "max-age=31536000"
+                },
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source" : "**/*.@(css|js)",
+            "headers" : [
+                {
+                    "key" : "Cache-Control",
+                    "value" : "max-age=86400"
+                }
+            ]
+        }
+    ],
+    "rewrites": [
+      { "source": "favicon.ico", "destination": "assets/favicon.ico" }
+    ]
+  }
+}

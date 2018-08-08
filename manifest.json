@@ -1,6 +1,6 @@
 {
   "name": "dashboard-avtaler",
-  "short_name": "dashboard-avtaler",
+  "short_name": "avtaler",
   "description": "Dashboard for avtaler",
   "start_url": "/",
   "display": "standalone",

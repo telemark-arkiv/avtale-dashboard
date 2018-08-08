@@ -8,6 +8,7 @@ function store (state, emitter) {
   state.agreementSigned = 0
   state.agreementUnsignedSigned = 0
   state.agreementSignedUnsigned = 0
+  state.lastUpdated = new Date().getTime()
 
   emitter.on('DOMContentLoaded', function () {
     emitter.on('stats:update-total', function (status) {
@@ -49,9 +50,19 @@ function store (state, emitter) {
           emitter.emit('error', err)
         })
     })
-    emitter.emit('stats:update-total', false)
-    emitter.emit('stats:update-total', 'signed')
-    emitter.emit('stats:update-total', 'unsigned')
-    emitter.emit('stats:update-agreements')
+    emitter.on('update:all', function () {
+      emitter.emit('stats:update-total', false)
+      emitter.emit('stats:update-total', 'signed')
+      emitter.emit('stats:update-total', 'unsigned')
+      emitter.emit('stats:update-agreements')
+    })
+    emitter.emit('update:all')
+    setInterval(function () {
+      const now = new Date().getTime()
+      if (now - state.lastUpdated > 60000) {
+        state.lastUpdated = now
+        emitter.emit('update:all')
+      }
+    }, 600000)
   })
 }

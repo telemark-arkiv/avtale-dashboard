@@ -1,9 +1,13 @@
-var css = require('sheetify')
-var choo = require('choo')
+const css = require('sheetify')
+const choo = require('choo')
+const persist = require('choo-persist')
 
 css('tachyons')
 
-var app = choo()
+const app = choo()
+
+app.use(persist({name: 'avtale-dashboard-persist'}))
+
 if (process.env.NODE_ENV !== 'production') {
   app.use(require('choo-devtools')())
 } else {

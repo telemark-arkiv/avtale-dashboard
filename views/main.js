@@ -15,12 +15,26 @@ function view (state, emit) {
           <p class="f1 f-headline">${state.agreementSigned}</p>
         </div>
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Delvis signerte avtaler</h1>
+          <p class="f1 f-headline">${state.agreementUnsignedSigned + state.agreementSignedUnsigned}</p>
+        </div>
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Usignerte avtaler</h1>
           <p class="f1 f-headline">${state.agreementsUnsigned}</p>
         </div>
+      </div>
+      <div class="flex-m flex-l">
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
-          <h1>Delvis signerte avtaler</h1>
-          <p class="f1 f-headline">${state.agreementUnsignedSigned + state.agreementSignedUnsigned}</p>
+          <h1>Lest</h1>
+          <p class="f1 f-headline">${state.read}</p>
+        </div>
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Varslet</h1>
+          <p class="f1 f-headline">${state.readNotified}</p>
+        </div>
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Unntak</h1>
+          <p class="f1 f-headline">${state.readDenied}</p>
         </div>
       </div>
       <div class="flex-m flex-l">
@@ -35,6 +49,20 @@ function view (state, emit) {
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Usignerte parts</h1>
           <p class="f1 f-headline">${state.unsigned}</p>
+        </div>
+      </div>
+      <div class="flex-m flex-l">
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Avbrutte avtaler</h1>
+          <p class="f1 f-headline">${state.agreementsCancelled}</p>
+        </div>
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Delvis avbrutte avtaler</h1>
+          <p class="f1 f-headline">${state.agreementUnsignedCancelled + state.agreementCancelledUnsigned}</p>
+        </div>
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Avbrutte parts</h1>
+          <p class="f1 f-headline">${state.cancelled}</p>
         </div>
       </div>
     </body>

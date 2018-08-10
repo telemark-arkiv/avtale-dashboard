@@ -7,12 +7,10 @@ function store (state, emitter) {
   state.cancelled = 0
   state.read = 0
   state.agreementsCancelled = 0
+  state.agreementsPartlySigned = 0
+  state.agreementsPartlyCancelled = 0
   state.agreementsUnsigned = 0
-  state.agreementSigned = 0
-  state.agreementUnsignedSigned = 0
-  state.agreementSignedUnsigned = 0
-  state.agreementCancelledUnsigned = 0
-  state.agreementUnsignedCancelled = 0
+  state.agreementsSigned = 0
   state.lastUpdated = new Date().getTime()
   state.readNotified = 0
   state.readDenied = 0
@@ -33,33 +31,44 @@ function store (state, emitter) {
           emitter.emit('error', err)
         })
     })
+    emitter.on('stats:update-status', function () {
+      window.fetch(`https://log.avtale.service.t-fk.no/stats/status`)
+        .then(res => res.json())
+        .then(data => {
+          data.forEach(item => {
+            state[item._id] = item.total
+          })
+          emitter.emit('render')
+        })
+        .catch((err) => {
+          emitter.emit('error', err)
+        })
+    })
     emitter.on('stats:update-agreements', function () {
       window.fetch(`https://log.avtale.service.t-fk.no/stats/agreements`)
         .then(res => res.json())
         .then(data => {
+          let partlySigned = 0
+          let partlyCancelled = 0
           data.forEach(item => {
             if (item._id.join('') === 'unsigned') {
               state.agreementsUnsigned = item.total
             }
             if (item._id.join('') === 'signed') {
-              state.agreementSigned = item.total
+              state.agreementsSigned = item.total
             }
-            if (item._id.join('') === 'unsignedsigned') {
-              state.agreementUnsignedSigned = item.total
-            }
-            if (item._id.join('') === 'signedunsigned') {
-              state.agreementSignedUnsigned = item.total
+            if (['unsignedsigned', 'signedunsigned'].includes(item._id.join(''))) {
+              partlySigned += item.total
             }
             if (item._id.join('') === 'cancelled') {
               state.agreementsCancelled = item.total
             }
-            if (item._id.join('') === 'unsignedcancelled') {
-              state.agreementUnsignedCancelled = item.total
-            }
-            if (item._id.join('') === 'cancelledunsigned') {
-              state.agreementCancelledUnsigned = item.total
+            if (['unsignedcancelled', 'cancelledunsigned'].includes(item._id.join(''))) {
+              partlyCancelled += item.total
             }
           })
+          state.agreementsPartlySigned = partlySigned
+          state.agreementsPartlyCancelled = partlyCancelled
           emitter.emit('render')
         })
         .catch((err) => {
@@ -101,9 +110,7 @@ function store (state, emitter) {
     })
     emitter.on('update:all', function () {
       emitter.emit('stats:update-total', false)
-      emitter.emit('stats:update-total', 'signed')
-      emitter.emit('stats:update-total', 'unsigned')
-      emitter.emit('stats:update-total', 'cancelled')
+      emitter.emit('stats:update-status')
       emitter.emit('stats:update-agreements')
       emitter.emit('stats:update-read')
     })

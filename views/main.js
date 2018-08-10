@@ -12,11 +12,11 @@ function view (state, emit) {
       <div class="flex-m flex-l">
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Signerte avtaler</h1>
-          <p class="f1 f-headline">${state.agreementSigned}</p>
+          <p class="f1 f-headline">${state.agreementsSigned}</p>
         </div>
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Delvis signerte avtaler</h1>
-          <p class="f1 f-headline">${state.agreementUnsignedSigned + state.agreementSignedUnsigned}</p>
+          <p class="f1 f-headline">${state.agreementsPartlySigned}</p>
         </div>
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Usignerte avtaler</h1>
@@ -58,7 +58,7 @@ function view (state, emit) {
         </div>
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Delvis avbrutte avtaler</h1>
-          <p class="f1 f-headline">${state.agreementUnsignedCancelled + state.agreementCancelledUnsigned}</p>
+          <p class="f1 f-headline">${state.agreementsPartlyCancelled}</p>
         </div>
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Avbrutte parts</h1>

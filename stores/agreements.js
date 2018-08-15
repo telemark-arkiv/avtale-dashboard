@@ -1,6 +1,7 @@
 module.exports = store
 
 function store (state, emitter) {
+  state.agreementType = 'elevpc'
   state.total = 0
   state.unsigned = 0
   state.signed = 0
@@ -17,7 +18,7 @@ function store (state, emitter) {
 
   emitter.on('DOMContentLoaded', function () {
     emitter.on('stats:update-total', function (status) {
-      window.fetch(`https://log.avtale.service.t-fk.no/stats/total/${status || ''}`)
+      window.fetch(`https://log.avtale.service.t-fk.no/stats/total/${status || ''}?agreementType=${state.agreementType}`)
         .then(res => res.json())
         .then(data => {
           if (status) {
@@ -32,7 +33,7 @@ function store (state, emitter) {
         })
     })
     emitter.on('stats:update-status', function () {
-      window.fetch(`https://log.avtale.service.t-fk.no/stats/status`)
+      window.fetch(`https://log.avtale.service.t-fk.no/stats/status?agreementType=${state.agreementType}`)
         .then(res => res.json())
         .then(data => {
           data.forEach(item => {
@@ -45,7 +46,7 @@ function store (state, emitter) {
         })
     })
     emitter.on('stats:update-agreements', function () {
-      window.fetch(`https://log.avtale.service.t-fk.no/stats/agreements`)
+      window.fetch(`https://log.avtale.service.t-fk.no/stats/agreements?agreementType=${state.agreementType}`)
         .then(res => res.json())
         .then(data => {
           let partlySigned = 0
@@ -76,7 +77,7 @@ function store (state, emitter) {
         })
     })
     emitter.on('stats:update-read', function () {
-      window.fetch(`https://log.avtale.service.t-fk.no/stats/read`)
+      window.fetch(`https://log.avtale.service.t-fk.no/stats/read?agreementType=${state.agreementType}`)
         .then(res => res.json())
         .then(data => {
           let read = 0
@@ -107,6 +108,10 @@ function store (state, emitter) {
         .catch((err) => {
           emitter.emit('error', err)
         })
+    })
+    emitter.on('update:agreementType', function (type) {
+      state.agreementType = type
+      emitter.emit('update:all')
     })
     emitter.on('update:all', function () {
       emitter.emit('stats:update-total', false)

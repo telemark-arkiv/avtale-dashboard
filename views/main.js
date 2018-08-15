@@ -9,8 +9,9 @@ function view (state, emit) {
 
   return html`
     <body class="sans-serif pa3">
-      <a data-filter="elevpc" class="f5 no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr2" ${state.agreementType === 'elevpc' ? 'active' : ''} href="#0" onclick=${setFilter}>ElevPC</a>
+      <a data-filter="elevpc" class="f5 no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr2${state.agreementType === 'elevpc' ? ' bg-black white' : ''}" href="#0" onclick=${setFilter}>ElevPC</a>
       <a data-filter="laeremidler" class="f5 no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr2" href="#0" onclick=${setFilter}>Læremidler</a>
+      <a data-filter="images" class="f5 no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr2" href="#0" onclick=${setFilter}>Bilder</a>
       <div class="flex-m flex-l">
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Signerte avtaler</h1>

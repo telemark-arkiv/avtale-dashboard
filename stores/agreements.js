@@ -17,6 +17,9 @@ function store (state, emitter) {
   state.readDenied = 0
 
   emitter.on('DOMContentLoaded', function () {
+    emitter.on('error', function (error) {
+      console.error(error)
+    })
     emitter.on('stats:update-total', function (status) {
       window.fetch(`https://log.avtale.service.t-fk.no/stats/total/${status || ''}?agreementType=${state.agreementType}`)
         .then(res => res.json())
@@ -58,13 +61,13 @@ function store (state, emitter) {
             if (item._id.join('') === 'signed') {
               state.agreementsSigned = item.total
             }
-            if (['unsignedsigned', 'signedunsigned'].includes(item._id.join(''))) {
+            if (['unsignedsigned', 'signedunsigned', 'signedexception', 'exceptionsigned'].includes(item._id.join(''))) {
               partlySigned += item.total
             }
             if (item._id.join('') === 'cancelled') {
               state.agreementsCancelled = item.total
             }
-            if (['unsignedcancelled', 'cancelledunsigned'].includes(item._id.join(''))) {
+            if (['unsignedcancelled', 'cancelledunsigned', 'cancelledexception', 'exceptioncancelled'].includes(item._id.join(''))) {
               partlyCancelled += item.total
             }
           })
@@ -84,19 +87,13 @@ function store (state, emitter) {
           let readNotified = 0
           let readDenied = 0
           data.forEach(item => {
-            if (item._id === 'VARSLET') {
-              readNotified += item.total
-            }
-            if (item._id === 'LEVERT_SDP') {
-              readNotified += item.total
-            }
-            if (item._id === 'SENDT_SDP') {
+            if (['VARSLET', 'LEVERT_SDP', 'SENDT_SDP', 'SENDT_DIGITALT'].includes(item._id)) {
               readNotified += item.total
             }
             if (item._id === 'IKKE_LEVERT') {
               readDenied += item.total
             }
-            if (item._id === 'LEST') {
+            if (['LEST', 'SENDT_PRINT'].includes(item._id)) {
               read += item.total
             }
           })

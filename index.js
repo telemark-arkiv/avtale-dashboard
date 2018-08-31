@@ -6,7 +6,7 @@ css('tachyons')
 
 const app = choo()
 
-app.use(persist({name: 'avtale-dashboard-persist'}))
+app.use(persist({ name: 'avtale-dashboard-persist' }))
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(require('choo-devtools')())

@@ -1,6 +1,6 @@
-var html = require('choo/html')
-
-var TITLE = 'Dashboard avtaler'
+const html = require('choo/html')
+const formatDateTime = require('../lib/format-date-time')
+const TITLE = 'Dashboard avtaler'
 
 module.exports = view
 
@@ -66,6 +66,20 @@ function view (state, emit) {
         <div class="center ba w-33-ns pa3 mr2 br3 mt3">
           <h1>Avbrutte parts</h1>
           <p class="f1 f-headline">${state.cancelled}</p>
+        </div>
+      </div>
+      <div class="flex-m flex-l">
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Siste oppdatering</h1>
+          <p class="f1 f-headline">${formatDateTime(state.stats.updated)}</p>
+        </div>
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Sist sjekket</h1>
+          <p class="f1 f-headline">${state.stats.checked || 0}</p>
+        </div>
+        <div class="center ba w-33-ns pa3 mr2 br3 mt3">
+          <h1>Sist feilet</h1>
+          <p class="f1 f-headline">${state.stats.errored || 0}</p>
         </div>
       </div>
     </body>

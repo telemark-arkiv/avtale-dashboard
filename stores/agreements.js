@@ -15,10 +15,24 @@ function store (state, emitter) {
   state.lastUpdated = new Date().getTime()
   state.readNotified = 0
   state.readDenied = 0
+  state.stats = {}
 
   emitter.on('DOMContentLoaded', function () {
     emitter.on('error', function (error) {
       console.error(error)
+    })
+    emitter.on('stats:update-stats', function () {
+      window.fetch(`https://stats.service.t-fk.no/stats/avtaler`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.length === 1) {
+            state.stats = data[0]
+            emitter.emit('render')
+          }
+        })
+        .catch((err) => {
+          emitter.emit('error', err)
+        })
     })
     emitter.on('stats:update-total', function (status) {
       window.fetch(`https://log.avtale.service.t-fk.no/stats/total/${status || ''}?agreementType=${state.agreementType}`)
@@ -112,6 +126,7 @@ function store (state, emitter) {
     })
     emitter.on('update:all', function () {
       emitter.emit('stats:update-total', false)
+      emitter.emit('stats:update-stats')
       emitter.emit('stats:update-status')
       emitter.emit('stats:update-agreements')
       emitter.emit('stats:update-read')

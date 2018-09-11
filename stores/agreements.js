@@ -122,6 +122,20 @@ function store (state, emitter) {
     })
     emitter.on('update:agreementType', function (type) {
       state.agreementType = type
+      state.total = 0
+      state.unsigned = 0
+      state.signed = 0
+      state.cancelled = 0
+      state.read = 0
+      state.agreementsCancelled = 0
+      state.agreementsPartlySigned = 0
+      state.agreementsPartlyCancelled = 0
+      state.agreementsUnsigned = 0
+      state.agreementsSigned = 0
+      state.lastUpdated = new Date().getTime()
+      state.readNotified = 0
+      state.readDenied = 0
+      state.stats = {}
       emitter.emit('update:all')
     })
     emitter.on('update:all', function () {

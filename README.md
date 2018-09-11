@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/telemark/avtale-dashboard.svg?branch=master)](https://travis-ci.org/telemark/avtale-dashboard)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+
 # avtale-dashboard
 
 Dashboard for avtaler
@@ -14,5 +17,3 @@ Dashboard for avtaler
 ## License
 
 [MIT](LICENSE)
-
-![Robohash image of avtale-dashboard](https://robots.kebabstudios.party/avtale-dashboard.png "Robohash image of avtale-dashboard")

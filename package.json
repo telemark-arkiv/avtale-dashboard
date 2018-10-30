@@ -40,7 +40,7 @@
     "node": ">=10.10.0"
   },
   "dependencies": {
-    "choo": "6.13.0",
+    "choo": "6.13.1",
     "choo-persist": "3.0.2",
     "choo-service-worker": "2.4.0",
     "sheetify": "7.3.3",

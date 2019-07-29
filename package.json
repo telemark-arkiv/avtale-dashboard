@@ -50,7 +50,7 @@
     "bankai": "9.15.1",
     "choo-devtools": "3.0.0",
     "choo-scaffold": "1.2.0",
-    "dependency-check": "4.0.1",
+    "dependency-check": "4.1.0",
     "standard": "13.1.0"
   }
 }

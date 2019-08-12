@@ -47,7 +47,7 @@
     "tachyons": "4.11.1"
   },
   "devDependencies": {
-    "bankai": "9.15.1",
+    "bankai": "9.15.2",
     "choo-devtools": "3.0.0",
     "choo-scaffold": "1.2.0",
     "dependency-check": "4.1.0",

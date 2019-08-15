@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "bankai": "9.15.2",
-    "choo-devtools": "3.0.0",
+    "choo-devtools": "3.0.1",
     "choo-scaffold": "1.2.0",
     "dependency-check": "4.1.0",
     "standard": "13.1.0"
